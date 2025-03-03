@@ -12,9 +12,9 @@ export default defineConfig({
       asClass: true,
       operationId: true,
       methodNameBuilder: (operation) => {
-        // @ts-ignore
+        // @ts-expect-error: operation.name might not exist
         let name: string = operation.name
-        // @ts-ignore
+        // @ts-expect-error: operation.service might not exist
         const service: string = operation.service
 
         if (service && name.toLowerCase().startsWith(service.toLowerCase())) {

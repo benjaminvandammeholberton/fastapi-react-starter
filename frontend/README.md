@@ -1,6 +1,27 @@
 # FastAPI Project - Frontend
 
-The frontend is built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [TanStack Router](https://tanstack.com/router) and [Chakra UI](https://chakra-ui.com/).
+The frontend is built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [React Router](https://tanstack.com/query), [Tailwind  CSS](https://tailwindcss.com) and [Shadcn/ui](https://ui.shadcn.com).
+
+## Removing the frontend
+
+If you are developing an API-only app and want to remove the frontend, you can do it easily:
+
+* Remove the `./frontend` directory.
+
+* In the `docker-compose.yml` file, remove the whole service / section `frontend`.
+
+* In the `docker-compose.override.yml` file, remove the whole service / section `frontend` and `playwright`.
+
+Done, you have a frontend-less (api-only) app. 🤓
+
+---
+
+If you want, you can also remove the `FRONTEND` environment variables from:
+
+* `.env`
+* `./scripts/*.sh`
+
+But it would be only to clean them up, leaving them won't really have any effect either way.
 
 ## Frontend development
 
@@ -51,27 +72,6 @@ Notice that this live server is not running inside Docker, it's for local develo
 
 Check the file `package.json` to see other available options.
 
-### Removing the frontend
-
-If you are developing an API-only app and want to remove the frontend, you can do it easily:
-
-* Remove the `./frontend` directory.
-
-* In the `docker-compose.yml` file, remove the whole service / section `frontend`.
-
-* In the `docker-compose.override.yml` file, remove the whole service / section `frontend` and `playwright`.
-
-Done, you have a frontend-less (api-only) app. 🤓
-
----
-
-If you want, you can also remove the `FRONTEND` environment variables from:
-
-* `.env`
-* `./scripts/*.sh`
-
-But it would be only to clean them up, leaving them won't really have any effect either way.
-
 ## Generate Client
 
 ### Automatically
@@ -119,9 +119,15 @@ The frontend code is structured as follows:
 * `frontend/src/assets` - Static assets.
 * `frontend/src/client` - The generated OpenAPI client.
 * `frontend/src/components` -  The different components of the frontend.
+* `frontend/src/components/ui` -  The different shadCN components.
 * `frontend/src/hooks` - Custom hooks.
-* `frontend/src/routes` - The different routes of the frontend which include the pages.
-* `theme.tsx` - The Chakra UI custom theme.
+* `frontend/src/contexts` - React Contexts for global state management.
+* `frontend/src/providers` - Global providers that wrap the application.
+* `frontend/src/lib` - Utility functions and third-party integrations.
+* `frontend/src/pages` - Page components that define the application's views.
+* `frontend/src/router` - Application routing configuration using React Router DOM
+
+
 
 ## End-to-End Testing with Playwright
 
@@ -152,3 +158,4 @@ docker compose down -v
 To update the tests, navigate to the tests directory and modify the existing test files or add new ones as needed.
 
 For more information on writing and running Playwright tests, refer to the official [Playwright documentation](https://playwright.dev/docs/intro).
+
